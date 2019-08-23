@@ -1,0 +1,13 @@
+public class AccountVF_controller {
+    public String var1 { get; set; }
+    public String var2 { get; set; }
+    public Account currentRecord{get; set;}
+
+    //Since this is the constructor (the same name as the controller) it is being called first. 
+    public AccountVF_controller() {
+        currentRecord = [SELECT Id,name FROM Account WHERE id  = :ApexPages.currentPage().getParameters().get('id') limit 1];
+        var1 = ApexPages.currentPage().getParameters().get('id');
+        var2 = currentRecord.id;
+    }
+
+}

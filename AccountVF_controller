@@ -1,13 +1,18 @@
 public class AccountVF_controller {
     public String var1 { get; set; }
     public String var2 { get; set; }
-    public Account currentRecord{get; set;}
+    public Account accountRecord{get; set;}
+    public Account contactRecord{get; set;}
 
     //Since this is the constructor (the same name as the controller) it is being called first. 
     public AccountVF_controller() {
-        currentRecord = [SELECT Id,name FROM Account WHERE id  = :ApexPages.currentPage().getParameters().get('id') limit 1];
+        accountRecord = [SELECT Id,name FROM Account WHERE id  = :ApexPages.currentPage().getParameters().get('id') limit 1];
+        contactRecord = [SELECT Id,name FROM Contact WHERE whatid  = :ApexPages.currentPage().getParameters().get('id') limit 1];
+        //OR you can get the id returned from the first query. This would be needed if you are trying to pass along a related record id.
+        //contactRecord = [SELECT Id,name FROM Contact WHERE whatid  = :accountRecord.id limit 1];
+        
         var1 = ApexPages.currentPage().getParameters().get('id');
-        var2 = currentRecord.id;
+        var2 = contactRecord.id;
     }
 
 }
